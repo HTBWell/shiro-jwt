@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.persistence.UserMapper">
+
+    <select id="getUser" resultType="com.example.demo.domain.User">
+        select * from user where username=#{username}
+    </select>
+    <select id="getUserByPass" resultType="com.example.demo.domain.User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+</mapper>
