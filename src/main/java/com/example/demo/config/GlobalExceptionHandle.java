@@ -27,11 +27,11 @@ public class GlobalExceptionHandle {
         return Result.fail(401, e.getMessage(), null);
     }
 
-
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthenticatedException.class)
     public Result handle401(UnauthenticatedException e) {
+        System.out.println(e.getMessage());
         return Result.fail(401, "你没有权限访问", null);
     }
 

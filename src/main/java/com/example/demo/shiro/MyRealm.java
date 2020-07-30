@@ -31,6 +31,7 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("授权~~~~~");
         String token=principals.toString();
         String username=JWTUtil.getUsername(token);
         User user=userService.getUser(username);
@@ -48,9 +49,15 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        System.out.println("认证~~~~~~~");
         String jwt= (String) token.getCredentials();
-        String username= JWTUtil.getUsername(jwt);
-        if (username==null||!JWTUtil.verify(jwt)){
+        String username= null;
+        try {
+            username= JWTUtil.getUsername(jwt);
+        }catch (Exception e){
+            throw new AuthenticationException("token非法，不是规范的token，可能被篡改了，或者过期了");
+        }
+        if (!JWTUtil.verify(jwt)||username==null){
             throw new AuthenticationException("token认证失效，token错误或者过期，重新登陆");
         }
         User user=userService.getUser(username);

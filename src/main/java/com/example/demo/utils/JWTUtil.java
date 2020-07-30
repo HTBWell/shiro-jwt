@@ -49,8 +49,6 @@ public class JWTUtil {
             return false;
         }
     }
-
-
     //无需解密也可以获取token的信息
     public static String getUsername(String token){
         try {
@@ -59,6 +57,5 @@ public class JWTUtil {
         } catch (JWTDecodeException e) {
             return null;
         }
-
     }
 }
